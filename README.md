@@ -11,7 +11,7 @@ The player is a device (e.g. a laptop) running plexamp (with remote control enab
 ## Controller
 The controller is an android device (with an nfc reader) running tailscale and tasker. Tasker keeps the device awake and responds to two inputs:
 1. When an nfc tag is scanned, the controller takes the url and `GET`s it. Before we `GET` the url, we need to rewrite the host to `[player's tailscale address]:[port number]` so the api call goes to the player. This begins playback.
-2. When a key is pressed on the remote, the controller takes the keycode and consults an array of corresponding actions. For each action, the controller queries the player state as appropriate and makes another api call to update it.
+2. When a key is pressed on the remote, the controller takes the keycode and consults an array of corresponding actions (e.g. play/pause/skip). For each action, the controller queries the player state as appropriate and makes another api call to update it.
 
 ## Remote
 The remote is a wireless keyboard connected to the controller. Each keypress on the remote triggers a distinct function on the controller which in turn updates the player.
