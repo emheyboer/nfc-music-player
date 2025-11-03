@@ -1,4 +1,5 @@
 // this script requires 'Auto Exit' be disabled
+
 var url = new URL(local('evtprm2'));  // evtprm2 contains the contents of the tag
 
 // each tag contains a URL in the form 'https://listen.plex.tv/*' to call the remote control api
