@@ -3,6 +3,17 @@
 - tailscale
 - tasker and autoinput
 
+# Setup
+1. setup plexamp and write tags as desired
+2. setup tailscale on player and controller
+3. import the tasker project located from `nfc_music_player.prj.xml`
+4. update js file paths in `play nfc` & `remote` tasks as needed
+5. set the following variables: `Players` (comma-separated list of player hostnames), `Tailnet` (in the form of `tail*.ts.net`), and `PlexPlayerPort` (usually 32500)
+6. set tasker as default handler for tags
+7. setup tasker's autoinput plugin
+8. connect to remote, set which keys should be intercepted by `key is pressed on remote` action, and update `actions` in `remote.js` as appropriate
+9. Run the task `setup`
+
 # Components
 This project consists of four components:
 1. player: a device running plexamp
