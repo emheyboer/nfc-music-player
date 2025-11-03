@@ -4,7 +4,7 @@ The goal of this project was to make a physical media player. It stores links to
 <img width="50%" height="50%" src=images/controller,remote,tags.jpg />
 
 # Software Requirements
-- plexamp (and therefore plex pass)
+- plexamp
 - tailscale
 - tasker and autoinput
 
