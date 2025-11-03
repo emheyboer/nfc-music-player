@@ -21,5 +21,5 @@ The controller is an android device (with an nfc reader) running tailscale and t
 ## Remote
 The remote is a wireless keyboard connected to the controller. Each keypress on the remote triggers a distinct function on the controller which in turn updates the player.
 
-## nfc Tags
-Using plexamp, we can write a URL (which calls /player/playback/playMedia) to each NFC tag for playback. These tags are therefore compatible with both this player and any other nfc-enabled device running plexamp.
+## Tags
+Using plexamp, we can write a URL (which calls /player/playback/playMedia) to each nfc tag for playback. These tags are therefore compatible with both this player and any other nfc-enabled device running plexamp.
