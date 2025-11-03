@@ -1,3 +1,8 @@
+# Software Requirements
+- plexamp (and therefore plex pass)
+- tailscale
+- tasker and autoinput
+
 # Components
 This project consists of four components:
 1. player: a device running plexamp
