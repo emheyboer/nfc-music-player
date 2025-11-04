@@ -11,7 +11,7 @@ The goal of this project was to make a physical media player. It stores links to
 # Setup
 1. setup plexamp and write tags as desired
 2. setup tailscale on player and controller
-3. import the tasker project located from `nfc_music_player.prj.xml`
+3. import the tasker project from `nfc_music_player.prj.xml`
 4. update js file paths in `play nfc` & `remote` tasks as needed
 5. set the following variables: `Players` (comma-separated list of player hostnames), `Tailnet` (in the form of `tail*.ts.net`), and `PlexPlayerPort` (usually 32500)
 6. set tasker as default handler for tags
