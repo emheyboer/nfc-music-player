@@ -17,7 +17,8 @@ The goal of this project was to make a physical media player. It stores links to
 6. set tasker as default handler for tags
 7. setup tasker's autoinput plugin so it can capture keypresses
 8. connect to remote, set which keys should be intercepted by `key is pressed on remote` action, and update `actions` in `remote.js` as appropriate
-9. Run the task `setup`
+9. Run the task `switch player` to set the variable `PlexPlayerAddr`
+10. Run the task `setup`
 
 # Components
 This project consists of four components:
