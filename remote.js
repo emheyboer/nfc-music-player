@@ -1,5 +1,10 @@
 // this script requires 'Auto Exit' be disabled
 
+// for api documentation see the following:
+// and keep in mind that many documented endpoints aren't implemented by plexamp
+// https://github.com/plexinc/plex-media-player/wiki/Remote-control-API
+// https://python-plexapi.readthedocs.io/en/latest/
+
 const STEP_DELTA = 10_000; // stepBack & stepForward time in ms
 const VOLUME_DELTA = 5; // volume up & down increment
 
@@ -69,6 +74,8 @@ function perform_action(action) {
                 perform_action(action);
             };
             break;
+        // while it is documented, plexamp doesn't actually implement
+        // /player/playback/{stepBack,stepForward}, so we do it manually
         case 'stepBack':
         case 'stepForward':
             timeline_callback = timeline => {
