@@ -1,9 +1,11 @@
 // this script requires 'Auto Exit' be disabled
 
 // for api documentation see the following:
-// and keep in mind that many documented endpoints aren't implemented by plexamp
 // https://github.com/plexinc/plex-media-player/wiki/Remote-control-API
 // https://python-plexapi.readthedocs.io/en/latest/
+// and keep in mind that many documented endpoints aren't implemented by plexamp
+// for some operations, it's easier to run plexamp as a remote and watch its traffic in wireshark
+// it appears to be impossible to perform some operations (e.g. show lyrics) because of that limitation
 
 const STEP_DELTA = 10_000; // stepBack & stepForward time in ms
 const VOLUME_DELTA = 5; // volume up & down increment
