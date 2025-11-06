@@ -48,3 +48,8 @@ The remote is a wireless keyboard connected to the controller. Each keypress on 
 <img width="50%" height="50%" src=images/tags.jpg />
 
 Using plexamp, we can write a URL (which calls `/player/playback/playMedia`) to each nfc tag for playback. These tags are then compatible with both this player and any other nfc-enabled device running plexamp. Also this project uses nfc tags embedded in pins with a metal backing. Because of that, on-metal nfc tags with a ferrite layer are required.
+
+# Notes
+For api documentation, there's the [python-plexapi project](https://python-plexapi.readthedocs.io/en/latest/) and [plex-media-player wiki](https://github.com/plexinc/plex-media-player/wiki/Remote-control-API) (from 2015). Keep in mind that many of the documented endpoints aren't actually implemented by plexamp. So it's often easier to run plexamp as a remote and watch its traffic in wireshark. It also appears to be impossible(?) to perform some operations (e.g. show lyrics) because of this limitation.
+
+There are some documented api requirements that this projects elides. Most endpoints require the `type` and `commandID` (which must be incremented) parameters, but these are (for the most part) not enforced by plexamp. Similarly the `X-Plex-Client-Identifier` and `X-Plex-Device-Name` headers are omitted.
