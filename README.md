@@ -32,6 +32,8 @@ This project consists of four components:
 
 The player is a device (e.g. a laptop) running plexamp (with remote control enabled) and tailscale. To connect to the player, the controller needs to be configured with the player's address in tailscale and plexamp's port number (usually 32500). 
 
+One controller can support any number of players on the same tailnet. To add more players, append each player's hostname in tailscale to the variable `Players`. To use a different player, run the `switch player` task and select from the list.
+
 ## Controller
 <img width="50%" height="50%" src=images/controller.jpg />
 
