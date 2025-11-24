@@ -35,7 +35,7 @@ The player is a device (e.g. a laptop) running plexamp (with remote control enab
 One controller can support any number of players on the same tailnet. To add more players, append each player's hostname in tailscale to the variable `Players`. To use a different player, run the `switch player` task and select from the list.
 
 ## Controller
-<img width="50%" height="50%" src=images/controller.jpg />
+<img width="30%" height="30%" src=images/controller_internals.jpg /><img width="50%" height="50%" src=images/controller.jpg />
 
 The controller is an android device (with an nfc reader) running tailscale and tasker. Tasker keeps the device awake and responds to two inputs:
 1. When an nfc tag is scanned, the controller takes the url and `GET`s it. Before doing so, we need to rewrite the host to `[player's tailscale address]:[port number]` so the api call goes to the player. This begins playing the album and replaces the existing playback queue.
