@@ -7,18 +7,20 @@ The goal of this project was to make a physical media player. It stores links to
 - plexamp
 - tailscale
 - tasker and autoinput
+- pushover (optional)
 
 # Setup
 1. setup plexamp and write tags for playback using its native share functionality
 2. setup tailscale on player and controller
 3. import the tasker project from `nfc_music_player.prj.xml`
 4. update `play nfc` and `remote` tasks to point to `nfc_tag.js` and `remote.js` respectively
-5. set the following variables: `Players` (comma-separated list of player hostnames), `PlexPlayerPort` (usually 32500), and (optionally) `Tailnet` (in the form of `*.ts.net`)
-6. set tasker as default handler for tags
-7. setup tasker's autoinput plugin so it can capture keypresses
-8. connect to remote, set which keys should be intercepted by `key is pressed on remote` action, and update `actions` in `remote.js` as appropriate
-9. Run the task `switch player` to set the variable `PlexPlayerAddr`
-10. Run the task `setup`
+5. set the following variables: `Players` (comma-separated list of player hostnames) and `PlexPlayerPort` (usually 32500)
+6. (optional) set the following variables as needed: `Tailnet` (in the form of `*.ts.net`), `PushoverToken`, and `PushoverUser` (pushover app token and user key respectively)
+7. set tasker as default handler for tags
+8. setup tasker's autoinput plugin so it can capture keypresses
+9. connect to remote, set which keys should be intercepted by `key is pressed on remote` action, and update `actions` in `remote.js` as appropriate
+10. Run the task `switch player` to set the variable `PlexPlayerAddr`
+11. Run the task `setup`
 
 # Components
 This project consists of four components:
@@ -40,6 +42,8 @@ One controller can support any number of players on the same tailnet. To add mor
 The controller is an android device (with an nfc reader) running tailscale and tasker. Tasker keeps the device awake and responds to two inputs:
 1. When an nfc tag is scanned, the controller takes the url and `GET`s it. Before doing so, we need to rewrite the host to `[player's tailscale address]:[port number]` so the api call goes to the player. This begins playing the album and replaces the existing playback queue.
 2. When a key is pressed on the remote, the controller takes the keycode and consults an array of corresponding actions (e.g. play/pause/skip). For each action, the controller queries the player state as appropriate and makes another api call to update it.
+
+When on low battery, the controller sends a push notification via pushover (if configured) to remind the user to charge it.
 
 ## Remote
 <img width="50%" height="50%" src=images/remote.jpg />

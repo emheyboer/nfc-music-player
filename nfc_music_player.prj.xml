@@ -1,6 +1,7 @@
 <TaskerData sr="" dvi="1" tv="6.5.11">
 	<Profile sr="prof65" ve="2">
 		<cdate>1761961907036</cdate>
+		<clp>true</clp>
 		<edate>1762202873234</edate>
 		<flags>8</flags>
 		<id>65</id>
@@ -89,11 +90,25 @@ Manual Key Codes: 144,158,160,145,146,147,148,149,150,157,151,152,153,156,143,15
 			<Int sr="arg3" val="1"/>
 		</Event>
 	</Profile>
+	<Profile sr="prof72" ve="2">
+		<cdate>1765437402407</cdate>
+		<clp>true</clp>
+		<edate>1765437557042</edate>
+		<flags>8</flags>
+		<id>72</id>
+		<mid0>73</mid0>
+		<nme>low battery</nme>
+		<State sr="con0" ve="2">
+			<code>140</code>
+			<Int sr="arg0" val="0"/>
+			<Int sr="arg1" val="20"/>
+		</State>
+	</Profile>
 	<Project sr="proj0" ve="2">
 		<cdate>1761961883520</cdate>
 		<name>nfc-music-player</name>
-		<pids>65,69,68</pids>
-		<tids>76,67,66,27</tids>
+		<pids>65,69,68,72</pids>
+		<tids>76,66,27,67,73</tids>
 	</Project>
 	<Task sr="task27">
 		<cdate>1650122254827</cdate>
@@ -163,7 +178,7 @@ Only available if you select &amp;lt;b&amp;gt;Continue Task After Error&amp;lt;/
 	</Task>
 	<Task sr="task66">
 		<cdate>1761961921155</cdate>
-		<edate>1762203207754</edate>
+		<edate>1765402737393</edate>
 		<id>66</id>
 		<nme>play nfc</nme>
 		<pri>6</pri>
@@ -177,7 +192,7 @@ Only available if you select &amp;lt;b&amp;gt;Continue Task After Error&amp;lt;/
 	</Task>
 	<Task sr="task67">
 		<cdate>1761971056219</cdate>
-		<edate>1765402124973</edate>
+		<edate>1765403038350</edate>
 		<id>67</id>
 		<nme>switch player</nme>
 		<pri>100</pri>
@@ -242,9 +257,46 @@ Selected Index
 			<nme>mw_av_play_circle_filled</nme>
 		</Img>
 	</Task>
+	<Task sr="task73">
+		<cdate>1765437420110</cdate>
+		<edate>1765437953910</edate>
+		<id>73</id>
+		<nme>send low battery notification</nme>
+		<pri>100</pri>
+		<Action sr="act0" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%reason</Str>
+			<Str sr="arg1" ve="3">low_battery</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5" val="3"/>
+			<Int sr="arg6" val="1"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>131</code>
+			<Str sr="arg0" ve="3">nfc-music-player/notify.js</Str>
+			<Str sr="arg1" ve="3"/>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="45"/>
+			<ConditionList sr="if">
+				<bool0>And</bool0>
+				<Condition sr="c0" ve="3">
+					<lhs>%PushoverToken</lhs>
+					<op>12</op>
+					<rhs></rhs>
+				</Condition>
+				<Condition sr="c1" ve="3">
+					<lhs>%PushoverUser</lhs>
+					<op>12</op>
+					<rhs></rhs>
+				</Condition>
+			</ConditionList>
+		</Action>
+	</Task>
 	<Task sr="task76">
 		<cdate>1762201478254</cdate>
-		<edate>1762215628482</edate>
+		<edate>1765436782924</edate>
 		<id>76</id>
 		<nme>remote</nme>
 		<pri>6</pri>
