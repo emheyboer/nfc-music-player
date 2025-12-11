@@ -1,4 +1,7 @@
 // this script requires 'Auto Exit' be disabled
+if (typeof exit != 'function') {
+    var {exit, local, global, flash} = require('./shims.js');
+}
 
 const STEP_DELTA = 10_000; // stepBack & stepForward time in ms
 const VOLUME_DELTA = 5; // volume up & down increment
