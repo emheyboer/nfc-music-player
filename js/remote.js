@@ -5,28 +5,17 @@ if (typeof exit != 'function') {
 
 const STEP_DELTA = 10_000; // stepBack & stepForward time in ms
 const VOLUME_DELTA = 5; // volume up & down increment
+const ACTIONS = {
+    151: 'shuffle',      152: 'stop',    153: 'repeat',      156: 'volumeUp',
+    148: 'skipPrevious', 149: 'play',    150: 'skipNext',    157: 'volumeDown',
+    145: 'stepBack',     146: 'pause',   147: 'stepForward',
+}
 
 function main() {
     const keycode = Number(local('aikeycode'));
-    const index = keycode - 145;
-    const actions = [
-        'stepBack',
-        'pause',
-        'stepForward',
-        'skipPrevious',
-        'play',
-        'skipNext',
-        'shuffle',
-        'stop',
-        'repeat',
-        null,
-        null,
-        'volumeUp',
-        'volumeDown',
-    ];
-    const action = actions[index];
+    const action = ACTIONS[keycode];
     if (!action) {
-        flash(`keycode = ${keycode}, index = ${index}`);
+        flash(`keycode = ${keycode}`);
         exit();
     }
 
