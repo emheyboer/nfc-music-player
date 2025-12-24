@@ -21,8 +21,8 @@ function main() {
         'repeat',
         null,
         null,
-        'volume_up',
-        'volume_down',
+        'volumeUp',
+        'volumeDown',
     ];
     const action = actions[index];
     if (!action) {
@@ -37,14 +37,14 @@ function perform_action(action) {
 
     let timeline_callback;
     switch (action) {
-        case 'volume_up':
-        case 'volume_down':
+        case 'volumeUp':
+        case 'volumeDown':
             timeline_callback = timeline => {
                 let volume = Number(timeline.getAttribute('volume'));
 
-                if (action == 'volume_up') {
+                if (action == 'volumeUp') {
                     volume = Math.min(volume + VOLUME_DELTA, 100);
-                } else if (action == 'volume_down') {
+                } else if (action == 'volumeDown') {
                     volume = Math.max(volume - VOLUME_DELTA, 0);
                 }
 
