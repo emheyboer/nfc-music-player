@@ -10,6 +10,7 @@ const ACTIONS = {
     151: 'shuffle',      152: 'stop',    153: 'repeat',      156: 'volumeUp',
     148: 'skipPrevious', 149: 'play',    150: 'skipNext',    157: 'volumeDown',
     145: 'stepBack',     146: 'pause',   147: 'stepForward',
+    144: 'nowPlaying',
 }
 
 function main() {
@@ -90,6 +91,27 @@ function perform_action(action) {
             switch_player(action);
             flash(global('PlexPlayerAddr'));
             exit();
+
+        case 'nowPlaying':
+            timeline_callback = timeline => {
+                const track = timeline.querySelector('Track');
+                const title = track.getAttribute('title');
+                const artist = track.getAttribute('grandparentTitle');
+
+                const parameters = {
+                    token: global('PushoverToken'),
+                    user: global('PushoverUser'),
+                    title: 'now playing',
+                    message: `${title} by ${artist}`,
+                };
+                
+                flash(parameters.message);
+                fetch('https://api.pushover.net/1/messages.json', {
+                    method: 'post',
+                    body: new URLSearchParams(parameters),
+                }).then(()=>exit());
+            };
+            break;
     }
 
     if (timeline_callback) {
@@ -134,7 +156,7 @@ function build_url(path) {
 
 function query_timeline(callback) {
     // the caller is required to increment commandID on each call, but this is not enforced
-    const url = build_url('/player/timeline/poll?wait=0&commandID=0');
+    const url = build_url('/player/timeline/poll?wait=0&commandID=0&includeMetadata=1');
 
     fetch(url).then(response => response.text()).then(text => {
         const parser = new DOMParser();
