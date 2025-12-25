@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@xmldom/xmldom": "^0.8.11",
     "dotenv": "^17.2.3"
   }
 }

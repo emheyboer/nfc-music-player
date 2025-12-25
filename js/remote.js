@@ -1,6 +1,6 @@
 // this script requires 'Auto Exit' be disabled
 if (typeof exit != 'function') {
-    var {exit, local, global, setGlobal, flash} = require('./shims.js');
+    var {exit, local, global, setGlobal, flash, DOMParser} = require('./shims.js');
 }
 
 const STEP_DELTA = 10_000; // stepBack & stepForward time in ms
@@ -94,7 +94,7 @@ function perform_action(action) {
 
         case 'nowPlaying':
             timeline_callback = timeline => {
-                const track = timeline.querySelector('Track');
+                const track = timeline.getElementsByTagName('Track')[0];
                 const title = track.getAttribute('title');
                 const artist = track.getAttribute('grandparentTitle');
 
@@ -104,7 +104,7 @@ function perform_action(action) {
                     title: 'now playing',
                     message: `${title} by ${artist}`,
                 };
-                
+
                 flash(parameters.message);
                 fetch('https://api.pushover.net/1/messages.json', {
                     method: 'post',
@@ -161,7 +161,7 @@ function query_timeline(callback) {
     fetch(url).then(response => response.text()).then(text => {
         const parser = new DOMParser();
         const xml = parser.parseFromString(text, 'application/xml');
-        const timeline = xml.querySelector('Timeline[itemType="music"]');
+        const timeline = xml.getElementsByTagName('Timeline')[0];
 
         callback(timeline);
     });
