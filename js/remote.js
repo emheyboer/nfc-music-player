@@ -186,9 +186,11 @@ function play_media(timeline, source, shuffle) {
     switch (source) {
         case 'all':
             media = track.getAttribute('librarySectionKey') + '/all';
+            shuffle ??= true;
             break;
         case 'artist':
             media = track.getAttribute('grandparentKey');
+            shuffle ??= true;
             break;
         case 'album':
             media = track.getAttribute('parentKey');
