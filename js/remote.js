@@ -14,8 +14,13 @@ const ACTIONS = {
 }
 
 function main() {
+    const tag_contents = local('evtprm2');
     const keycode = Number(local('aikeycode'));
-    const action = ACTIONS[keycode];
+
+    const action = local('action')
+        || action_from_tag(tag_contents)
+        || ACTIONS[keycode];
+
     if (!action) {
         flash(`keycode = ${keycode}`);
         exit();
@@ -98,20 +103,13 @@ function perform_action(action) {
                 const title = track.getAttribute('title');
                 const artist = track.getAttribute('grandparentTitle');
 
-                const parameters = {
-                    token: global('PushoverToken'),
-                    user: global('PushoverUser'),
-                    title: 'now playing',
-                    message: `${title} by ${artist}`,
-                };
-
-                flash(parameters.message);
-                fetch('https://api.pushover.net/1/messages.json', {
-                    method: 'post',
-                    body: new URLSearchParams(parameters),
-                }).then(()=>exit());
+                send_notification('now playing', `${title} by ${artist}`);
             };
             break;
+
+        case 'lowBattery':
+            send_notification(null, 'low battery — consider charging soon');
+            return;
     }
 
     if (timeline_callback) {
@@ -146,6 +144,27 @@ function player_addr(hostname) {
         return `${hostname}.${tailnet}`;
     }
     return hostname;
+}
+
+// each tag contains a URL in the form 'https://listen.plex.tv/player/playback/[action]'
+function action_from_tag(tag_contents) {
+    const url = new URL(tag_contents);
+    const action = url.pathname.split('/').pop() + url.search;
+    return action;
+}
+
+function send_notification(title, message) {
+    const parameters = {
+        token: global('PushoverToken'),
+        user: global('PushoverUser'),
+        message,
+    };
+    if (title) parameters.title = title;
+
+    fetch('https://api.pushover.net/1/messages.json', {
+        method: 'post',
+        body: new URLSearchParams(parameters),
+    }).then(()=>exit());
 }
 
 function build_url(path) {
