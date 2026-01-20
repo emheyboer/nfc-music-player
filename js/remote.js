@@ -157,6 +157,7 @@ function player_addr(hostname) {
 
 // each tag contains a URL in the form 'https://listen.plex.tv/player/playback/[action]'
 function action_from_tag(tag_contents) {
+    if (!tag_contents) return;
     const url = new URL(tag_contents);
     const action = url.pathname.split('/').pop() + url.search;
     return action;
