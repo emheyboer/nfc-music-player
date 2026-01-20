@@ -6,10 +6,11 @@ if (typeof exit != 'function') {
 const STEP_DELTA = 10_000; // stepBack & stepForward time in ms
 const VOLUME_DELTA = 5; // volume up & down increment
 const ACTIONS = {
-    143: 'player1',      154: 'player2', 155: 'player3',     67: 'player4',
-    151: 'shuffle',      152: 'stop',    153: 'repeat',      156: 'volumeUp',
-    148: 'skipPrevious', 149: 'play',    150: 'skipNext',    157: 'volumeDown',
-    145: 'stepBack',     146: 'pause',   147: 'stepForward',
+    111: 'playAll',      210: 'playArtist', 61: 'playAlbum',    70: 'playTrack',
+    143: 'player1',      154: 'player2',    155: 'player3',     67: 'player4',
+    151: 'shuffle',      152: 'stop',       153: 'repeat',      156: 'volumeUp',
+    148: 'skipPrevious', 149: 'play',       150: 'skipNext',    157: 'volumeDown',
+    145: 'stepBack',     146: 'pause',      147: 'stepForward',
     144: 'nowPlaying',
 }
 
@@ -86,6 +87,14 @@ function perform_action(action) {
                 action = `seekTo?offset=${time}`;
                 perform_action(action);
             };
+            break;
+
+        case 'playAll':
+        case 'playArtist':
+        case 'playAlbum':
+        case 'playTrack':
+            source = action.slice(4).toLowerCase();
+            timeline_callback = timeline => play_media(timeline, source, null);
             break;
 
         case 'player1':
@@ -165,6 +174,44 @@ function send_notification(title, message) {
         method: 'post',
         body: new URLSearchParams(parameters),
     }).then(()=>exit());
+}
+
+function play_media(timeline, source, shuffle) {
+    const track = timeline.getElementsByTagName('Track')[0];
+    if (!track) return;
+    const server = track.getAttribute('source');
+    
+    let media;
+    switch (source) {
+        case 'all':
+            media = track.getAttribute('librarySectionKey') + '/all';
+            break;
+        case 'artist':
+            media = track.getAttribute('grandparentKey');
+            break;
+        case 'album':
+            media = track.getAttribute('parentKey');
+            break;
+        case 'track':
+            media = track.getAttribute('key');
+            break;
+        default:
+            media = source;
+    }
+
+    if (shuffle == true) {
+        shuffle = 1;
+    } else if (shuffle == false) {
+        shuffle = 0;
+    } else {
+        shuffle = timeline.getAttribute('shuffle');
+    }
+
+    const params = new URLSearchParams({
+        uri: `server://${server}/com.plexapp.plugins.library${media}`,
+        shuffle,
+    });
+    perform_action(`playMedia?${params}`);
 }
 
 function build_url(path) {
