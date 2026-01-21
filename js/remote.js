@@ -53,6 +53,13 @@ function perform_action(action) {
             timeline_callback = timeline => {
                 let shuffle = Number(timeline.getAttribute('shuffle'));
 
+                const can_shuffle = timeline.getAttribute('controllable')
+                    .split(',').includes('shuffle');
+                if (!can_shuffle) {
+                    play_media(timeline, 'album', true);
+                    return;
+                }
+
                 shuffle = 1 - shuffle;
                 
                 action = `setParameters?shuffle=${shuffle}`;
@@ -194,6 +201,7 @@ function play_media(timeline, source, shuffle) {
             break;
         case 'album':
             media = track.getAttribute('parentKey');
+            shuffle ??= false;
             break;
         case 'track':
             media = track.getAttribute('key');
