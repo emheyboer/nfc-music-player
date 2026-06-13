@@ -18,7 +18,8 @@ else
     echo "Examples:"
     echo "$bin pause"
     echo "$bin ${PlexPlayerAddr:-laptop} play"
-
+    echo "$bin setParameters?volume=100"
+    echo "$bin playMedia?uri=..."
 
     echo "
 Supported Actions:
@@ -28,6 +29,6 @@ skipPrevious skipNext
 shuffle repeat
 playAll playArtist playAlbum playTrack
 nowPlaying
-player[number]
-volumeUp volumeDown"
+volumeUp volumeDown
+[any /player/playback/* endpoint]"
 fi
